@@ -37,21 +37,6 @@ app.get('/song', (req, res) => {
 		})
 	})
 });
-// app.get('/watch', (req, res) => {
-// 	const sqlStr = 'select * from watchlist '
-// 	connection.query(sqlStr, (err, results) => {
-// 		if (err) return res.json({
-// 			err_code: 1,
-// 			message: '数据不存在',
-// 			affextedRows: 0
-// 		})
-// 		res.json({
-// 			err_code: 200,
-// 			message: results,
-// 			affextedRows: results.affextedRows
-//         })
-// 	})
-// });
 app.get('/goods', (req, res) => {
 	const sqlStr = 'select * from goodslist '
 	connection.query(sqlStr, (err, results) => {
@@ -115,27 +100,9 @@ app.get('/songUrl', (req, res) => {
 		console.log(results)
 	})
 });
-// app.get('/watchDetail', (req, res) => {
-//     console.log(req.query.item)
-// 	const sqlStr = 'select * from watchlist where id='+req.query.item
-// 	connection.query(sqlStr, (err, results) => {
-// 		if (err) return res.json({
-// 			err_code: 1,
-// 			message: '数据不存在',
-// 			affextedRows: 0
-// 		})
-// 		res.json({
-// 			err_code: 200,
-// 			message: results,
-// 			affextedRows: results.affextedRows
-// 		})
-// 		console.log(results)
-// 	})
-// });
+
 app.get('/addCard', (req, res) => {
 	console.log(req.query.carDetail)
-	// insert into 表名1（字段名1，字段名2，....）select 字段名1，字段名2，.... from 表名2；
-	// const sqlStr = "insert into cardlist (shopName,shopContent,shopImg,shopImgs,id) values ("+req.query.carDetail.shopName+","+req.query.carDetail.shopContent+","+req.query.carDetail.shopImg+","+req.query.carDetail.shopImgs+","+req.query.carDetail.id+")"
 	const sqlStr = 'select * from cardlist where id=' + req.query.carDetail.id
 	connection.query(sqlStr, (err, results) => {
 		if (err) return res.json({
@@ -149,7 +116,6 @@ app.get('/addCard', (req, res) => {
 			affextedRows: results.affextedRows
 		})
 		console.log(results)
-		// var str="INSERT INTO cardlis(shopName, shopContent, shopImg,shopImgs,id,price,num) VALUES("+req.query.carDetail.shopName+","+req.query.carDetail.shopContent+","+req.query.carDetail.shopImg+","+req.query.carDetail.shopImgs+","+req.query.carDetail.id+","+req.query.carDetail.price+",1) ON DUPLICATE KEY UPDATE num=num+1 WHERE id="+req.query.carDetail.id;
 		connection.query('INSERT INTO cardlist SET  ?', { "shopName": req.query.carDetail.shopName, "shopContent": req.query.carDetail.shopContent, "shopImg": req.query.carDetail.shopImg, "shopImgs": req.query.carDetail.shopImgs, "id": req.query.carDetail.id, "price": req.query.carDetail.price, "num": 1,"isDel":"true","isCheck":"true" }, (err, results) => {
 			if (err) {
 				console.log('插入数据失败')
@@ -174,13 +140,6 @@ app.get('/addGoods', (req, res) => {
 		if(err){console.log('插入数据失败')}
 		else{console.log("加入收藏成功")}
 	})
-	// connection.query('update songlist SET isgood=true WHERE id=?',req.query.data.id,(err,data)=>{
-	// 	if(err){
-	// 		console.log("更新失败")
-	// 	}else{
-	// 		console.log("更新成功")
-	// 	}
-	// })
 })
 app.get('/card', (req, res) => {
 	const sqlStr = 'select * from cardlist '
